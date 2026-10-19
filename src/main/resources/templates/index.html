@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Школа танцев</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        h1 { color: #8e44ad; }
+        .card { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px; }
+        .meta { color: #666; font-size: 14px; }
+        form { display: flex; gap: 10px; margin-top: 20px; }
+        input, select, button { padding: 10px; }
+        button { background: #8e44ad; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Школа танцев «Ритм»</h1>
+    <p>Запишитесь на пробное занятие!</p>
+
+    <h2>Направления</h2>
+    <div th:each="d : ${directions}" class="card">
+        <h3 th:text="${d.title}"></h3>
+        <p th:text="${d.description}"></p>
+        <p class="meta">
+            Преподаватель: <span th:text="${d.teacher}"></span> | 
+            Расписание: <span th:text="${d.schedule}"></span>
+        </p>
+    </div>
+
+    <h2>Записаться</h2>
+    <form action="/enroll" method="post">
+        <input type="text" name="studentName" placeholder="Ваше имя" required>
+        <input type="text" name="phone" placeholder="Телефон" required>
+        <select name="directionId" required>
+            <option value="">Выберите направление</option>
+            <option th:each="d : ${directions}" th:value="${d.id}" th:text="${d.title}"></option>
+        </select>
+        <button type="submit">Записаться</button>
+    </form>
+
+    <h2>Список записавшихся</h2>
+    <ul>
+        <li th:each="e : ${enrollments}">
+            <span th:text="${e.studentName}"></span> 
+            (тел: <span th:text="${e.phone}"></span>) 
+            — записан на ID направления: <span th:text="${e.direction.id}"></span>
+        </li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,6 @@
+com\dance\model\Direction.class
+com\dance\DanceApplication.class
+com\dance\repository\EnrollmentRepository.class
+com\dance\model\Enrollment.class
+com\dance\controller\DanceController.class
+com\dance\repository\DirectionRepository.class
